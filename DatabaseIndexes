@@ -1,0 +1,20 @@
+Grokking System Design in 60 Days with Anant : Why Database Indexes Matter 👨‍🎓 
+Before diving into the importance of database indexes, let's consider what we truly desire from our database:
+👉 Persistent data storage
+👉 Fast reads
+👉 Fast writes
+👉 High availability
+👉 low redundancy
+
+Data in a database is typically stored on a hard drive 💽 , which consists of a spinning disk and a read/write arm. The closer the data is stored together on the disk, the less the arm has to move, resulting in faster access. Conversely, if data is scattered randomly, the arm has to move more, which slows down the process.
+
+Imagine a database that holds information like people's names and their shoe sizes. In a non-sorted, non-indexed database, searching for a specific shoe size (e.g., size 7) would have a time complexity of O(N), where N is the number of records. Now, if you want to update the shoe size for a particular user, you first have to find their name (O(N)) and then make the change, resulting in a time complexity of O(N) for both read and write operations.
+
+This O(N) complexity isn’t great, especially for applications like Facebook, which handle massive amounts of data. A single update could take considerable time, and when you multiply that by millions of updates daily😱, it’s clear that this approach isn't scalable.
+
+To improve write performance, we can append changes to the end of the database. This reduces the write complexity from O(N) to O(1) because we’re simply adding data at the end. However, while writes become faster, reads remain at O(N) but with an even larger dataset to search through.
+
+This is where database indexes come into play. Indexes improve read performance by allowing the database to quickly locate data. When data is indexed and sorted, you can use binary search, significantly reducing read time. Indexes also enable efficient range queries, like fetching posts from a day ago or retrieving rows with names between "A" and "B."
+
+However, this improvement in read performance comes at a cost: slower writes 😥. Since most applications are read-heavy rather than write-heavy, this trade-off is usually acceptable 😊 . There are various types of indexing strategies that can help minimize this trade-off, and we’ll explore main types in the next part of this series.
+Stay tuned for more insights into system design!
